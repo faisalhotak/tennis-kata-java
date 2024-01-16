@@ -11,13 +11,13 @@ public class TennisGame {
 
     public void play(Player playerOne, Player playerTwo) {
         ScoreBoard board = new ScoreBoard();
-        ScoreEvaluator evaluator = new ScoreEvaluator();
+        GameEvaluator evaluator = new GameEvaluator();
 
         logger.info("""
                 
-                ====================================
+                =======================
                 TENNIS KATA JAVA
-                ====================================
+                =======================
                 """);
 
         while (!isGameFinished(evaluator, playerOne, playerTwo)) {
@@ -29,21 +29,18 @@ public class TennisGame {
     }
 
     private void playRound(ScoreBoard board, Player playerOne, Player playerTwo) {
-        RoundScore roundScore = new RoundScore();
         int ballWin = random.nextInt(2);
 
         if (ballWin == 0) {
             playerOne.addWinBall();
-            roundScore.playerOneWinsTheRound();
         } else {
             playerTwo.addWinBall();
-            roundScore.playerTwoWinsTheRound();
         }
 
-        board.addRoundScore(roundScore);
+        board.saveRoundScore(playerOne, playerTwo);
     }
 
-    private boolean isGameFinished(ScoreEvaluator evaluator, Player playerOne, Player playerTwo) {
-        return evaluator.evaluateScore(playerOne, playerTwo) == GameStatus.GAME_FINISHED;
+    private boolean isGameFinished(GameEvaluator evaluator, Player playerOne, Player playerTwo) {
+        return evaluator.evaluateGameStatus(playerOne, playerTwo) == GameStatus.GAME_FINISHED;
     }
 }
