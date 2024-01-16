@@ -12,9 +12,37 @@ public class ScoreBoard {
 
     private final List<RoundScore> roundScores = new ArrayList<>();
 
+    private static final List<String> SCORES_DESCRIPTION = List.of("LOVE", "FIFTEEN", "THIRTY", "FORTY");
+
     public void displayScore() {
         for (RoundScore roundScore : roundScores) {
-            logger.info("Round {} : {} - {}", roundScores.indexOf(roundScore) + 1, roundScore.getPlayerOneScore(), roundScore.getPlayerTwoScore());
+            int roundNumber = roundScores.indexOf(roundScore) + 1;
+            int playerOneScore = roundScore.playerOneScore();
+            int playerTwoScore = roundScore.playerTwoScore();
+
+            if (playerOneScore > GameEvaluator.HIGHEST_SCORE || playerTwoScore > GameEvaluator.HIGHEST_SCORE) {
+                int scoreDifference = Math.abs(playerOneScore - playerTwoScore);
+
+                if (scoreDifference == 0) {
+                    logger.info("Round {} : DEUCE", roundNumber);
+                } else if (scoreDifference == 1) {
+                    String forty = SCORES_DESCRIPTION.get(3);
+
+                    if (playerOneScore > playerTwoScore) {
+                        logger.info("Round {} : ADVANTAGE - {}", roundNumber, forty);
+                    } else {
+                        logger.info("Round {} : {} - ADVANTAGE", roundNumber, forty);
+                    }
+                } else {
+                    logger.info("Round {} : GAME", roundNumber);
+                }
+            } else {
+
+                String playerOneScoreDescription = SCORES_DESCRIPTION.get(playerOneScore);
+                String playerTwoScoreDescription = SCORES_DESCRIPTION.get(playerTwoScore);
+
+                logger.info("Round {} : {} - {}" , roundNumber, playerOneScoreDescription, playerTwoScoreDescription);
+            }
         }
     }
 
@@ -32,19 +60,9 @@ public class ScoreBoard {
         return playerTwo.getName();
     }
 
-    public void addRoundScore(RoundScore roundScore) {
-        int playerOneScore = roundScore.getPlayerOneScore();
-        int playerTwoScore = roundScore.getPlayerTwoScore();
+    public void saveRoundScore(Player playerOne, Player playerTwo) {
+        RoundScore roundScore = new RoundScore(playerOne.getWinBalls(), playerTwo.getWinBalls());
 
-        if (!roundScores.isEmpty()) {
-            RoundScore latestRoundScore = roundScores.get(roundScores.size() - 1);
-
-            playerOneScore += latestRoundScore.getPlayerOneScore();
-            playerTwoScore += latestRoundScore.getPlayerTwoScore();
-        }
-
-        RoundScore newRoundScore = new RoundScore(playerOneScore, playerTwoScore);
-
-        roundScores.add(newRoundScore);
+        roundScores.add(roundScore);
     }
 }
