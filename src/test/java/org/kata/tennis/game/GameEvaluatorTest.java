@@ -4,8 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.kata.tennis.player.Player;
 
-import java.lang.reflect.Constructor;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameEvaluatorTest {

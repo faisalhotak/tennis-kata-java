@@ -84,10 +84,6 @@ public class TennisGame {
         }
     }
 
-    public ScoreBoard getScoreBoard() {
-        return board;
-    }
-
     public void setScoreBoard(ScoreBoard board) {
         this.board = board;
     }
