@@ -1,4 +1,4 @@
-[![KataTennis](https://static.vecteezy.com/ti/vecteur-libre/t1/7744546-balles-de-tennis-et-raquette-sports-fitness-vecteur-conception-raquette-croisee-logo-silhouette-noire-est-isole-sur-fond-blanc-vectoriel.jpg)]
+![KataTennis](https://static.vecteezy.com/ti/vecteur-libre/t1/7744546-balles-de-tennis-et-raquette-sports-fitness-vecteur-conception-raquette-croisee-logo-silhouette-noire-est-isole-sur-fond-blanc-vectoriel.jpg)
 
 # KataTennis
 
