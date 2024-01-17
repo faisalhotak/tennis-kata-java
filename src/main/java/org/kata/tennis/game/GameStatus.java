@@ -1,4 +1,4 @@
-package org.kata.tennis;
+package org.kata.tennis.game;
 
 /**
  * This enum represents the status of the game.

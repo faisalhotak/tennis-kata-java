@@ -1,4 +1,4 @@
-package org.kata.tennis;
+package org.kata.tennis.score;
 
 /**
  * This class represents the score of a round.

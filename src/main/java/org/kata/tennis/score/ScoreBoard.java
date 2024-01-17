@@ -1,5 +1,7 @@
-package org.kata.tennis;
+package org.kata.tennis.score;
 
+import org.kata.tennis.player.Player;
+import org.kata.tennis.game.GameEvaluator;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 

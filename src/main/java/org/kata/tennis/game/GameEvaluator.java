@@ -1,4 +1,6 @@
-package org.kata.tennis;
+package org.kata.tennis.game;
+
+import org.kata.tennis.player.Player;
 
 /**
  * This utility class is used to evaluate the game status.

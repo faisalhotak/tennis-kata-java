@@ -1,6 +1,9 @@
-package org.kata.tennis;
+package org.kata.tennis.game;
 
 import java.util.Random;
+
+import org.kata.tennis.player.Player;
+import org.kata.tennis.score.ScoreBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

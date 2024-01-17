@@ -1,4 +1,4 @@
-package org.kata.tennis;
+package org.kata.tennis.player;
 
 /**
  * This class represents a player.

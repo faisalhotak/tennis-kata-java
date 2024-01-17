@@ -1,4 +1,7 @@
-package org.kata.tennis;
+package org.kata.tennis.main;
+
+import org.kata.tennis.player.Player;
+import org.kata.tennis.game.TennisGame;
 
 /**
  * This is the main class of the application. It is used to start the game.
