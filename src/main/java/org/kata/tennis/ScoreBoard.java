@@ -37,7 +37,6 @@ public class ScoreBoard {
                     logger.info("Round {} : GAME", roundNumber);
                 }
             } else {
-
                 String playerOneScoreDescription = SCORES_DESCRIPTION.get(playerOneScore);
                 String playerTwoScoreDescription = SCORES_DESCRIPTION.get(playerTwoScore);
 
@@ -52,7 +51,7 @@ public class ScoreBoard {
         logger.info("'{}' has won the game!", winner);
     }
 
-    protected String getWinnerName(Player playerOne, Player playerTwo) {
+    private String getWinnerName(Player playerOne, Player playerTwo) {
         if (playerOne.getWinBalls() > playerTwo.getWinBalls()) {
             return playerOne.getName();
         }
