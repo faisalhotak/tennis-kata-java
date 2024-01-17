@@ -25,6 +25,10 @@ public class Player {
         return winBalls;
     }
 
+    public void setWinBalls(int winBalls) {
+        this.winBalls = winBalls;
+    }
+
     /**
      * This method is used to add a win ball to the player.
      */

@@ -36,33 +36,50 @@ public class ScoreBoard {
             int playerOneScore = roundScore.playerOneScore();
             int playerTwoScore = roundScore.playerTwoScore();
 
-            // If one of the players has a score greater than 40, then we need to check the score difference between the two players.
-            // Else, we can directly display the score of the two players.
-            if (playerOneScore > GameEvaluator.SCORE_FORTY || playerTwoScore > GameEvaluator.SCORE_FORTY) {
-                int scoreDifference = Math.abs(playerOneScore - playerTwoScore);
+            String roundScoreMessage = getRoundScoreMessage(roundNumber, playerOneScore, playerTwoScore);
 
-                // If there is no score difference between the two players, then the score is DEUCE.
-                // If there is a score difference of 1, then the score is ADVANTAGE for the player with the highest score.
-                // Else, it means that the score difference is greater than 1, then the player with the highest score wins the game.
-                if (scoreDifference == 0) {
-                    logger.info("Round {} : DEUCE", roundNumber);
-                } else if (scoreDifference == 1) {
-                    String forty = SCORES_DESCRIPTION.get(3);
+            logger.info(roundScoreMessage);
+        }
+    }
 
-                    if (playerOneScore > playerTwoScore) {
-                        logger.info("Round {} : ADVANTAGE - {}", roundNumber, forty);
-                    } else {
-                        logger.info("Round {} : {} - ADVANTAGE", roundNumber, forty);
-                    }
+    /**
+     * This method is responsible for getting the score message of a round.
+     * @param playerOneScore the score of the first player represented by an integer
+     * @param playerTwoScore the score of the second player represented by an integer
+     * @param roundNumber the number of the round represented by an integer
+     * @return the score message of the round
+     */
+    protected String getRoundScoreMessage(int roundNumber, int playerOneScore, int playerTwoScore) {
+        int scoreDifference = Math.abs(playerOneScore - playerTwoScore);
+
+        // If one of the players has a score greater than 40, then we need to check the score difference between the two players.
+        // Else, we can directly display the score of the two players.
+        if (playerOneScore > GameEvaluator.SCORE_FORTY || playerTwoScore > GameEvaluator.SCORE_FORTY) {
+            // If there is no score difference between the two players, then the score is DEUCE.
+            // If there is a score difference of 1, then the score is ADVANTAGE for the player with the highest score.
+            // Else, it means that the score difference is greater than 1, then the player with the highest score wins the game.
+            if (scoreDifference == 0) {
+                return String.format("Round %d : DEUCE", roundNumber);
+            } else if (scoreDifference == 1) {
+                String forty = SCORES_DESCRIPTION.get(3);
+
+                if (playerOneScore > playerTwoScore) {
+                    return String.format("Round %d : ADVANTAGE - %s", roundNumber, forty);
                 } else {
-                    logger.info("Round {} : GAME", roundNumber);
+                    return String.format("Round %d : %s - ADVANTAGE", roundNumber, forty);
                 }
             } else {
-                String playerOneScoreDescription = SCORES_DESCRIPTION.get(playerOneScore);
-                String playerTwoScoreDescription = SCORES_DESCRIPTION.get(playerTwoScore);
-
-                logger.info("Round {} : {} - {}" , roundNumber, playerOneScoreDescription, playerTwoScoreDescription);
+                return String.format("Round %d : GAME", roundNumber);
             }
+        } else {
+            String playerOneScoreDescription = SCORES_DESCRIPTION.get(playerOneScore);
+            String playerTwoScoreDescription = SCORES_DESCRIPTION.get(playerTwoScore);
+
+            if (playerOneScore == GameEvaluator.SCORE_FORTY && scoreDifference == 0) {
+                return String.format("Round %d : DEUCE", roundNumber);
+            }
+
+            return String.format("Round %d : %s - %s", roundNumber, playerOneScoreDescription, playerTwoScoreDescription);
         }
     }
 
@@ -85,7 +102,7 @@ public class ScoreBoard {
      * @param playerTwo the second player
      * @return the name of the winner
      */
-    private String getWinnerName(Player playerOne, Player playerTwo) {
+    protected static String getWinnerName(Player playerOne, Player playerTwo) {
         if (playerOne.getWinBalls() > playerTwo.getWinBalls()) {
             return playerOne.getName();
         }
@@ -102,5 +119,9 @@ public class ScoreBoard {
         RoundScore roundScore = new RoundScore(playerOne.getWinBalls(), playerTwo.getWinBalls());
 
         roundScores.add(roundScore);
+    }
+
+    public List<RoundScore> getRoundScores() {
+        return roundScores;
     }
 }

@@ -19,6 +19,8 @@ public class TennisGame {
      */
     private static final Random random = new Random();
 
+    private ScoreBoard board = new ScoreBoard();
+
     /**
      * This method is responsible for playing the tennis game.
      * It will play rounds until the game is finished.
@@ -27,8 +29,6 @@ public class TennisGame {
      * @param playerTwo the second player
      */
     public void play(Player playerOne, Player playerTwo) {
-        ScoreBoard board = new ScoreBoard();
-
         logger.info("""
                 
                 =======================
@@ -51,7 +51,7 @@ public class TennisGame {
      * @param playerOne the first player
      * @param playerTwo the second player
      */
-    private void playRound(ScoreBoard board, Player playerOne, Player playerTwo) {
+    protected void playRound(ScoreBoard board, Player playerOne, Player playerTwo) {
         setRandomRoundWinner(playerOne, playerTwo);
         board.saveRoundScore(playerOne, playerTwo);
     }
@@ -62,7 +62,7 @@ public class TennisGame {
      * @param playerTwo the second player
      * @return true if the game is finished, false otherwise
      */
-    private boolean isGameFinished(Player playerOne, Player playerTwo) {
+    protected boolean isGameFinished(Player playerOne, Player playerTwo) {
         return GameEvaluator.evaluateGameStatus(playerOne, playerTwo) == GameStatus.GAME_FINISHED;
     }
 
@@ -74,7 +74,7 @@ public class TennisGame {
      * @param playerOne the first player
      * @param playerTwo the second player
      */
-    private void setRandomRoundWinner(Player playerOne, Player playerTwo) {
+    protected void setRandomRoundWinner(Player playerOne, Player playerTwo) {
         int roundWinner = random.nextInt(2);
 
         if (roundWinner == 0) {
@@ -82,5 +82,13 @@ public class TennisGame {
         } else {
             playerTwo.addWinBall();
         }
+    }
+
+    public ScoreBoard getScoreBoard() {
+        return board;
+    }
+
+    public void setScoreBoard(ScoreBoard board) {
+        this.board = board;
     }
 }
