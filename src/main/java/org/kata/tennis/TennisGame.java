@@ -11,7 +11,6 @@ public class TennisGame {
 
     public void play(Player playerOne, Player playerTwo) {
         ScoreBoard board = new ScoreBoard();
-        GameEvaluator evaluator = new GameEvaluator();
 
         logger.info("""
                 
@@ -20,7 +19,7 @@ public class TennisGame {
                 =======================
                 """);
 
-        while (!isGameFinished(evaluator, playerOne, playerTwo)) {
+        while (!isGameFinished(playerOne, playerTwo)) {
             playRound(board, playerOne, playerTwo);
         }
 
@@ -29,18 +28,21 @@ public class TennisGame {
     }
 
     private void playRound(ScoreBoard board, Player playerOne, Player playerTwo) {
-        int ballWin = random.nextInt(2);
+        setRandomRoundWinner(playerOne, playerTwo);
+        board.saveRoundScore(playerOne, playerTwo);
+    }
 
-        if (ballWin == 0) {
+    private boolean isGameFinished(Player playerOne, Player playerTwo) {
+        return GameEvaluator.evaluateGameStatus(playerOne, playerTwo) == GameStatus.GAME_FINISHED;
+    }
+
+    private void setRandomRoundWinner(Player playerOne, Player playerTwo) {
+        int roundWinner = random.nextInt(2);
+
+        if (roundWinner == 0) {
             playerOne.addWinBall();
         } else {
             playerTwo.addWinBall();
         }
-
-        board.saveRoundScore(playerOne, playerTwo);
-    }
-
-    private boolean isGameFinished(GameEvaluator evaluator, Player playerOne, Player playerTwo) {
-        return evaluator.evaluateGameStatus(playerOne, playerTwo) == GameStatus.GAME_FINISHED;
     }
 }
