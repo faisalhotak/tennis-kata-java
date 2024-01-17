@@ -1,9 +1,13 @@
 package org.kata.tennis;
 
-public class GameEvaluator {
+public final class GameEvaluator {
     public static final int HIGHEST_SCORE = 3;
 
-    public GameStatus evaluateGameStatus(Player playerOne, Player playerTwo) {
+    private GameEvaluator() {
+        throw new UnsupportedOperationException("This class should not be instantiated");
+    }
+
+    public static GameStatus evaluateGameStatus(Player playerOne, Player playerTwo) {
         int playerOneScore = playerOne.getWinBalls();
         int playerTwoScore = playerTwo.getWinBalls();
         int scoreDifference = Math.abs(playerOneScore - playerTwoScore);
